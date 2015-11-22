@@ -5,22 +5,22 @@ output: html_document
 #How to run the analysis? 
 ##A detailed description for the file run_analysis.R
 
-1) Load R libraries (plyr and dplyr) into the workspace
-2) Set the working directory for the project
-3) Read in activity and features text files and call them objects named "activity_labels" and "features"
-4) Read in 'test' data files and call them objects named "subject_test"", "x_test" and "y_test"
-5) Read in 'train' data files and call them objects named "subject_train", x_train" and "y_train"
-6) Label Variable 1 in "subject_test" and "subject_train" as "Subject"
-7) Row bind subject_test and subject_train and call it object "dat1"
-8) Row bind "y_test" and "y_train"" and call it object "dat2"
-9) Assign Variable 1 in dat2 to the labels in activity labels
-10) Assign Variable 2 in features.txt as the colnames in "x_test" and "x_train"
-11) Row bind x_test and x_train and call it "dat3"
-12) In "dat3"," double-check for duplicate names in order to use the select function in dplyr
-13) In "dat3", extract only the columns which look at the Mean or standard deviation of each measurement
-14) Column bind "dat1", "dat2" and "MeanAndSD" and call it object "AllData"
-15) Work out the average of each variable for each activity and each subject and create a data set called "TidyData"
-16) Export the "TidyData" dataset to the Desktop
+1. Load R libraries (plyr and dplyr) into the workspace
+2. Set the working directory for the project
+3. Read in activity and features text files and call them objects named "activity_labels" and "features"
+4. Read in 'test' data files and call them objects named "subject_test"", "x_test" and "y_test"
+5. Read in 'train' data files and call them objects named "subject_train", x_train" and "y_train"
+6. Label Variable 1 in "subject_test" and "subject_train" as "Subject"
+7. Row bind subject_test and subject_train and call it object "dat1"
+8. Row bind "y_test" and "y_train"" and call it object "dat2"
+9. Assign Variable 1 in dat2 to the labels in activity labels
+10. Assign Variable 2 in features.txt as the colnames in "x_test" and "x_train"
+11. Row bind x_test and x_train and call it "dat3"
+12. In "dat3"," double-check for duplicate names in order to use the select function in dplyr
+13. In "dat3", extract only the columns which look at the Mean or standard deviation of each measurement
+14. Column bind "dat1", "dat2" and "MeanAndSD" and call it object "AllData"
+15. Work out the average of each variable for each activity and each subject and create a data set called "TidyData"
+16. Export the "TidyData" dataset to the Desktop
 
 
 
