@@ -1,0 +1,58 @@
+---
+title: "README and Code Book"
+output: html_document
+---
+#How to run the analysis? 
+##A detailed description for the file run_analysis.R
+
+1) Load R libraries (plyr and dplyr) into the workspace
+2) Set the working directory for the project
+3) Read in activity and features text files and call them objects named "activity_labels" and "features"
+4) Read in 'test' data files and call them objects named "subject_test"", "x_test" and "y_test"
+5) Read in 'train' data files and call them objects named "subject_train", x_train" and "y_train"
+6) Label Variable 1 in "subject_test" and "subject_train" as "Subject"
+7) Row bind subject_test and subject_train and call it object "dat1"
+8) Row bind "y_test" and "y_train"" and call it object "dat2"
+9) Assign Variable 1 in dat2 to the labels in activity labels
+10) Assign Variable 2 in features.txt as the colnames in "x_test" and "x_train"
+11) Row bind x_test and x_train and call it "dat3"
+12) In "dat3"," double-check for duplicate names in order to use the select function in dplyr
+13) In "dat3", extract only the columns which look at the Mean or standard deviation of each measurement
+14) Column bind "dat1", "dat2" and "MeanAndSD" and call it object "AllData"
+15) Work out the average of each variable for each activity and each subject and create a data set called "TidyData"
+16) Export the "TidyData" dataset to the Desktop
+
+
+
+
+#Code book
+##This provides a description of the variables in the TidyData dataset
+
+*Variable Numbers:*
+
+* [1] Subject= This is the subject identifier
+* [2] Activity= This describes what type of activity the subjects were performing during the measurement with 1=WALKING, 2=WALKING UPSTAIRS, 3=WALKING DOWNSTAIRS, 4=SITTING, 5=STANDING, 6=LAYING)
+* [3:5] Mean of the Body Accel in X, Y, Z axes (time)
+* [6:8] Mean of the Gravity Accel in X, Y, Z axes (time)
+* [9:11] Mean of the Body Accel Jerk in X, Y, Z axes (time)
+* [12:14] Mean of the Body Gyro in X, Y, Z axes (time)
+* [15:17] Mean of the Body Gyro Jerk in X, Y, Z axes (time)
+* [18] Mean of the Body Acc Mag (time)             
+* [19] Mean of the Gravity Acc Mag (time)        
+* [20] Mean of the Body Acc Jerk Mag (time)         
+* [21] Mean of the Body Gyro Mag (time)            
+* [22] Mean of the Body Gyro Jerk Mag (time)  
+* [23:25] Mean of the Body Accel in X, Y, Z axes (frequency)
+* [26:28] Mean frequency of Body Accel in X, Y, Z axes (frequency)
+* [29:31] Mean of the Body Accel Jerk in X, Y, Z axes (frequency)
+* [32:34] Mean frequency of Body Accel Jerk in X, Y, Z axes (frequency)
+* [35:37] Mean of Body Gyro in X, Y, Z axes (frequency)
+* [38:40] Mean frequency of Body Gyro in X, Y, Z axes (frequency)
+* [41] Mean of the Body Acc Mag (frequency)              
+* [42] Mean frequency of the Body Acc Mag (frequency)       
+* [43] Mean of the Body Acc Jerk Mag (frequency)    
+* [44] Mean frequency of the Body Acc Jerk Mag (frequency)  
+* [45] Mean of the Body Gyro Mag (frequency)      
+* [46] Mean frequency of the Body Gyro Mag (frequency)    
+* [47] Mean of the Body Gyro Jerk Mag (frequency)  
+* [48] Mean frequency of the Body Gyro Jerk Mag (frequency)  
