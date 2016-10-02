@@ -1,0 +1,95 @@
+---
+title: "Coursera Prediction Assignment"
+author: "Charmaine Hough"
+date: "2 October 2016"
+output: html_document
+---
+
+##Introduction
+#####Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. This study collected data from accelerometers worn on the belt, forearm, arm, and dumbell from 6 participants. Participants were asked to perform barbell lifts correctly and incorrectly in 5 different ways. The aim of this analysis was to quantify how well these exercises were performed.
+
+
+##Load libraries required for analyses
+```{r}
+library(caret)
+library(dplyr)
+library(tidyr)
+library(rattle)
+library(rpart.plot)
+```
+
+##Load in training and testing csv file
+```{r}
+dat_training <- read.csv("C://Users/ctam0304.MCS/Desktop/datasciencecoursera/8.PracticalMachineLearning/pml-training.csv")
+dat_testing <- read.csv("C://Users/ctam0304.MCS/Desktop/datasciencecoursera/8.PracticalMachineLearning/pml-testing.csv")
+```
+
+##Data cleaning
+####Remove all variables that contain NA and remove the 1st 7 features as they are not numeric
+```{r}
+features <- names(dat_testing[,colSums(is.na(dat_testing)) == 0])[8:59]
+```
+
+####Only include features in the testing set in the training set
+```{r}
+dat_training <- dat_training[,c(features,"classe")]
+dat_testing <- dat_testing[,c(features,"problem_id")]
+```
+
+####Checking the dimensions of training and testing sets
+```{r}
+dim(dat_training)
+dim(dat_testing)
+```
+
+##Data partitioning
+####Make training and testing validation sets based on "classe" variable.The validation set will be used to assess the out of sample error for our model.
+```{r}
+set.seed(125)
+inTrain <- createDataPartition(dat_training$classe, p=0.7,list=FALSE,times=1)
+training <- dat_training[inTrain,]
+testing = dat_training[-inTrain,]
+```
+
+
+##Building a decision tree model
+####Given that the outcome variable classe is a categorical variable, we will first use a decision tree model.
+```{r}
+modFitDT <- rpart(classe ~ ., data = training, method="class")
+fancyRpartPlot(modFitDT)
+```
+
+####Predict using the decision tree model on the validation set
+```{r}
+set.seed(125)
+predDT <- predict(modFitDT, testing, type = "class")
+confusionMatrix(predDT, testing$classe)
+```
+#####Accuracy of decision tree model= 76%
+
+## Building a random forest model
+####Build the model using random forest and perform predictions on the validation set.We selected k-fold=5 for performing cross validation
+```{r}
+set.seed(125)
+fitControl<-trainControl(method="cv", number=5, allowParallel=T, verbose=T)
+rffit<-train(classe~.,data=training, method="rf", trControl=fitControl, verbose=F)
+predrf<-predict(rffit, newdata=testing)
+confusionMatrix(predrf, testing$classe)
+```
+
+#####The acccuracy of the random forest model is 99% with a 95% CI of [0.99,0.9946] showing that is the random forest model is highly accurate.
+
+##Conclusions and generating predictions on test dataset
+#####As the random forest model presented with a higher accuracy, we used it to generate the predictions on the test dataset
+
+```{r}
+pred20<-predict(rffit, newdata=dat_testing)
+```
+
+# Output for the prediction of the 20 cases 
+```{r}
+pred20
+```
+
+
+
